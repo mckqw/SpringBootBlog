@@ -1,0 +1,42 @@
+.post-carousel-slide {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.post-carousel-slide:hover {
+    transform: scale(1.05);
+}
+
+.featured-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.post-details {
+    padding: 10px;
+}
+
+.post-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.post-excerpt {
+    font-size: 1em;
+    color: #555;
+}
+
+.post-date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 200px;
+}

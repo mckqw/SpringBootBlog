@@ -1,0 +1,54 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    com.mhckqw.blog: DEBUG
+
+spring:
+  application:
+    name: blog
+  datasource:
+    url: jdbc:postgresql://db:5432/compose-postgres
+    username: compose-postgres
+    password: compose-postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+  security:
+    user:
+      name: user
+      password: password
+    logging:
+      level: DEBUG
+  ai:
+    vectorstore:
+      chroma:
+        initialize-schema: true
+        client:
+          host: http://chroma-db
+          username: chroma-user
+          password: chroma-password
+      embedding:
+        transformer:
+          cache-dir: /app/cache
+          onnx:
+            modelUri: https://huggingface.co/intfloat/e5-small-v2/resolve/main/model.onnx
+          tokenizer:
+            uri: https://huggingface.co/intfloat/e5-small-v2/raw/main/tokenizer.json
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8080
+
+jwt:
+  private.key: classpath:app.key
+  public.key: classpath:app.pub

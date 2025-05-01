@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  chroma-db:
+    image: chromadb/chroma:0.5.20 # Do not use latest v1 endpoints are deprecated in latest
+    container_name: chroma-db
+    ports:
+      - "8000:8000"
+    environment:
+      CHROMA_DB_DIR: /data
+      CHROMA_DB_USERNAME: chroma-user
+      CHROMA_DB_PASSWORD: chroma-password
+    volumes:
+      - chroma-data:/data
+
+  db:
+    image: postgres:13.1-alpine # Cannot use latest, as it is not compatible with the current version of Spring Data JPA
+    environment:
+      POSTGRES_USER: compose-postgres
+      POSTGRES_PASSWORD: compose-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "9251:9251"
+    volumes:
+      - ./src:/app/src:delegated
+      - ./build:/app/build:delegated
+      - ./src/main/resources:/app/src/main/resources:delegated
+      - ./cache:/app/cache:delegated
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      - SPRING_DEVTOOLS_REMOTE_DEBUG=true # Enable remote debugging for DevTools
+    depends_on:
+      - db
+      - chroma-db
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app:delegated
+    depends_on:
+      - backend
+
+volumes:
+  chroma-data:
+  db_data:
