@@ -1,82 +1,81 @@
 # Blog Application
 
-This project is a full-stack blog application built with Spring Boot as the backend and ReactJS as the frontend. The application allows users to create blog posts, add comments, and categorize posts by tags or categories. It is containerized using Docker and includes plans for user authentication, automated Docker image builds with GitHub Actions, and potential cloud deployment.
+This project is a full-stack blog application built with Spring Boot as the backend and ReactJS as the frontend. The application allows users to create blog posts, add comments, and categorize posts by tags or categories. It is containerized using Docker and includes user authentication, automated Docker image builds with GitHub Actions, and potential cloud deployment.
 
 ## Features
 
+- **User Authentication**: Secure access to certain features.
 - **Create Blog Posts**: Users can create new blog posts with titles, content, and tags.
 - **Add Comments**: Users can comment on blog posts.
-- **Categorize Posts**: Posts can be categorized by tags or categories for better organization.
-- **Complex Search Tools**: The application implements a vectorized database with advanced search capabilities.
-- **User Authentication**: Plans to implement user authentication for secure access to certain features.
+- **Categorization**: Posts can be categorized by tags for better organization.
+- **Advanced Search**: Vectorized database with advanced search capabilities.
 
 ## Technologies Used
 
-- **Backend**: Spring Boot, JPA, H2 Database (or any other relational database)
+- **Backend**: Spring Boot, JPA, PostgreSQL
 - **Frontend**: ReactJS, Axios for API calls
 - **Containerization**: Docker
 - **CI/CD**: GitHub Actions for automated builds
-- **Deployment**: Potential cloud deployment options (e.g., AWS, Heroku)
+- **AI Integration**: ONNX-based transformer models and Chroma vector store
 
 ## Project Structure
 
 ```
-blog-application
+SpringBootBlog
 ├── backend
-│   ├── src
-│   │   ├── main
-│   │   │   ├── java
-│   │   │   │   └── com
-│   │   │   │       └── mhckqw
-│   │   │   │           └── blog
-│   │   │   │               ├── BlogApplication.java
-│   │   │   │               ├── controller
-│   │   │   │               │   └── PostController.java
-│   │   │   │               ├── model
-│   │   │   │               │   ├── Post.java
-│   │   │   │               │   └── Comment.java
-│   │   │   │               ├── repository
-│   │   │   │               │   ├── PostRepository.java
-│   │   │   │               │   └── CommentRepository.java
-│   │   │   │               └── service
-│   │   │   │                   └── PostService.java
-│   │   │   └── resources
-│   │   │       ├── application.properties
-│   │   │       └── data.sql
-│   ├── Dockerfile
-│   ├── pom.xml
-│   └── README.md
+│   ├── src/main/java/com/mhckqw/blog
+│   │   ├── BlogApplication.java
+│   │   ├── controller
+│   │   ├── model
+│   │   ├── repository
+│   │   └── service
+│   ├── src/main/resources
+│   │   ├── application.yml
+│   │   └── data.sql
+│   └── build.gradle
 ├── frontend
 │   ├── public
-│   │   └── index.html
 │   ├── src
 │   │   ├── components
-│   │   │   ├── BlogPost.js
-│   │   │   ├── Comment.js
-│   │   │   └── Navbar.js
 │   │   ├── pages
-│   │   │   ├── HomePage.js
-│   │   │   ├── PostPage.js
-│   │   │   └── LoginPage.js
 │   │   ├── App.js
 │   │   └── index.js
-│   ├── package.json
-│   ├── Dockerfile
-│   └── README.md
+│   └── package.json
+├── app/cache
 ├── docker-compose.yml
-├── .github
-│   └── workflows
-│       └── docker-image.yml
 └── README.md
 ```
 
 ## Getting Started
 
-1. Clone the repository.
-2. Navigate to the `backend` directory and build the backend application using Maven.
-3. Navigate to the `frontend` directory and install the dependencies using npm.
-4. Use Docker to build and run the application.
-5. Access the application in your web browser.
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd SpringBootBlog
+   ```
+
+2. Build the backend application using Gradle:
+   ```bash
+   ./gradlew clean build
+   ```
+
+3. Navigate to the `frontend` directory and install the dependencies using npm:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+4. Download the `model.onnx` file:
+   ```bash
+   wget https://huggingface.co/intfloat/e5-small-v2/resolve/main/model.onnx -P ./app/cache
+   ```
+
+5. Use Docker to build and run the application:
+   ```bash
+   docker-compose up --build
+   ```
+
+6. Access the application in your web browser at `http://localhost:3000`.
 
 ## Contributing
 
