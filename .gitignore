@@ -4,3 +4,5 @@ node_modules
 cache
 .vscode
 .DS_Store
+src/main/resources/*.key
+src/main/resources/*.pub
