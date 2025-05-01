@@ -59,24 +59,27 @@ SpringBootBlog
    ./gradlew clean build
    ```
 
-3. Navigate to the `frontend` directory and install the dependencies using npm:
+3. Generate private and public keys:
    ```bash
-   cd frontend
+   cd src/main/resources
+   ./generate_keys.sh
+   ```
+   Make sure that the private key is named `app.key` and the public key `app.pub`
+
+4. Navigate to the `frontend` directory and install the dependencies using npm:
+   ```bash
+   cd ../../frontend
    npm install
    ```
 
-4. Download the `model.onnx` file:
+5. Download the `model.onnx` file:
    ```bash
    wget https://huggingface.co/intfloat/e5-small-v2/resolve/main/model.onnx -P ./app/cache
    ```
 
-5. Use Docker to build and run the application:
+6. Use Docker to build and run the application:
    ```bash
    docker-compose up --build
    ```
 
-6. Access the application in your web browser at `http://localhost:3000`.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+7. Access the application in your web browser at `http://localhost:3000`.
